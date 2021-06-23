@@ -19,6 +19,8 @@ function App() {
           Learn React
         </a>
       </header>
+      <label htmlFor="test">Test</label>
+      <input type="text" onChange={ () => { console.log("test") } } />
     </div>
   );
 }
