@@ -1,5 +1,5 @@
-export const INCREMENT = "INCREMENT";
-export const DECREMENT = "DECREMENT";
+export const INCREMENT: string = "INCREMENT";
+export const DECREMENT: string = "DECREMENT";
 
 export const increment = () => ({
   type: INCREMENT,
