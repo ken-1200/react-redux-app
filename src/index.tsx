@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 
 import './index.css';
 import reducer from './reducers';
-import App from './components/App';
+import TaskList from './components/TaskList';
 import reportWebVitals from './reportWebVitals';
 
 // ストアを定義する・アプリ内で唯一のものになる
@@ -15,7 +15,7 @@ ReactDOM.render(
   <React.StrictMode>
     {/* プロバイダーで囲うと全ての階層でストアが使える */}
     <Provider store={ store }>
-      <App />
+      <TaskList />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

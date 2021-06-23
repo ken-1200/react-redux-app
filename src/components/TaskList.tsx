@@ -10,7 +10,7 @@ type Props = {
   decrement: React.MouseEventHandler<HTMLButtonElement> | undefined,
 }
 
-class App extends Component<Props, {}> {
+class TaskList extends Component<Props, {}> {
   // 画面描画
   render() {
     return (
@@ -32,4 +32,4 @@ const mapDispathToProps = ({ increment, decrement });
 //   decrement: () => dispatch(decrement()),
 // });
 
-export default connect(mapStateToProps, mapDispathToProps)(App);
+export default connect(mapStateToProps, mapDispathToProps)(TaskList);
