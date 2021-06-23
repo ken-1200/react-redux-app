@@ -3,6 +3,12 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  // props
+  const profile = [
+    { name: "Machida", age: "23" },
+    { name: "Machida.jr", age: "3" },
+    { name: "不明" },
+  ]
   return (
     <div className="App">
       <header className="App-header">
@@ -19,8 +25,28 @@ function App() {
           Learn React
         </a>
       </header>
+      <label htmlFor="test">Test</label>
+      <input type="text" onChange={ () => { console.log("test") } } />
+
+      {
+        profile.map((profile, index) => {
+          return <User name={ profile.name } age={ profile.age } key={ index } />
+        })
+      }
     </div>
   );
+}
+
+const User = (prpos: any) => {
+  return (
+    <div>
+      Wow! {prpos.name}! {prpos.age}.
+    </div>
+  )
+}
+
+User.defaultProps = {
+  age: 1
 }
 
 export default App;
