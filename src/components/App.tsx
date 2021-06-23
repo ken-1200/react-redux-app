@@ -1,61 +1,35 @@
 import React, { Component } from 'react';
-// import logo from '../logo.svg';
+import { connect } from 'react-redux';
+
+import { increment, decrement } from '../actions';
 import '../App.css';
 
-export const App = () => ( <Counter></Counter> )
-
-type State= {
-  count: number,
+type Props = {
+  value: number,
+  increment: React.MouseEventHandler<HTMLButtonElement> | undefined,
+  decrement: React.MouseEventHandler<HTMLButtonElement> | undefined,
 }
 
-class Counter extends Component<{}, State> {
-  // 初期化処理
-  constructor(props: any) {
-    super(props);
-    this.state = { count: 0 };
-  }
-
-  handlePulsButton = () => {
-    // ステートを更新する時のお決まり
-    this.setState({ count: this.state.count + 1 })
-  }
-
-  handleMinusButton = () => {
-    // ステートを更新する時のお決まり
-    this.setState({ count: this.state.count - 1 })
-  }
-
+class App extends Component<Props, {}> {
   // 画面描画
   render() {
     return (
       <React.Fragment>
-        <div>count: { this.state.count }</div>
-        <button onClick={ this.handlePulsButton }>+1</button>
-        <button onClick={ this.handleMinusButton }>-1</button>
+        <div>count: { this.props.value }</div>
+        <button onClick={ this.props.increment }>+1</button>
+        <button onClick={ this.props.decrement }>-1</button>
       </React.Fragment>
     )
   }
 }
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.tsx</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
+// ステートとアクション(reducersの中身)をPropsに渡す
+const mapStateToProps = (state: any) => ({ value: state.count.value });
+const mapDispathToProps = ({ increment, decrement });
 
-export default App;
+// const mapDispathToProps = (dispatch: any) => ({
+//   increment: () => dispatch(increment()),
+//   decrement: () => dispatch(decrement()),
+// });
+
+export default connect(mapStateToProps, mapDispathToProps)(App);
