@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import count from "./count";
+import task from "./tasklist";
 
 // ステートの中身を渡す
-export default combineReducers({ count });
+export default combineReducers({ task });
