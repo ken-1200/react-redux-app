@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 
-import { getTask, deleteTask } from '../actions';
+import { getTask, updateTask, deleteTask } from '../actions';
 import '../App.css';
 
 type Props = {
   deleteTask: any;
   getTask: any;
+  updateTask: any;
   history: any;
   match: any;
 }
@@ -55,7 +56,7 @@ class ShowTask extends Component<Props, {}> {
 
   // 更新
   private async onSubmit(values: submitType) {
-    // await this.props.createTask(values);
+    await this.props.updateTask(values);
 
     // task一覧画面へ
     this.props.history.push("/");
@@ -113,7 +114,7 @@ const mapStateToProps = (state: any, ownProps: any) => {
 };
 
 // ステートとアクション(reducersの中身)をPropsに渡す
-const mapDispathToProps: any = ({ getTask, deleteTask });
+const mapDispathToProps: any = ({ getTask, updateTask, deleteTask });
 
 export default connect(mapStateToProps, mapDispathToProps)(
   reduxForm<{}, any>({ validate, form: "showTaskForm", enableReinitialize: true })(ShowTask)
