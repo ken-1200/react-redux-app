@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { Link } from 'react-router-dom';
 
 import { tasklist } from '../actions';
 import '../App.css';
@@ -12,8 +13,6 @@ class TaskList extends Component<Props, {}> {
   componentDidMount() {
     // ここでアクションで定義した関数を呼び出す
     this.props.tasklist();
-    // console.log(this.props);
-    // console.log(this.state);
   };
 
   // メンバ関数
@@ -45,6 +44,9 @@ class TaskList extends Component<Props, {}> {
             { this.renderTaskList() }
           </tbody>
         </table>
+
+        {/* リンク */}
+        <Link to="/task/new">New Link</Link>
       </React.Fragment>
     );
   };
