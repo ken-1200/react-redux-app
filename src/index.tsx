@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
 import './index.css';
 import reducer from './reducers';
@@ -21,7 +22,7 @@ const enhancer = process.env.NODE_ENV === "development" ?
 const store = createStore(reducer, enhancer);
 
 ReactDOM.render(
-  <React.StrictMode>
+  <MuiThemeProvider>
     {/* プロバイダーで囲うと全ての階層でストアが使える */}
     <Provider store={ store }>
       <BrowserRouter>
@@ -33,7 +34,7 @@ ReactDOM.render(
         </Switch>
       </BrowserRouter>
     </Provider>
-  </React.StrictMode>,
+  </MuiThemeProvider>,
   document.getElementById('root')
 );
 
