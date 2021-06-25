@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import { tasklist } from '../actions';
 import '../App.css';
@@ -18,39 +21,49 @@ class TaskList extends Component<Props, {}> {
   // メンバ関数
   renderTaskList() {
     return _.map(this.props.task, task => (
-      <tr key={ task.id }>
-        <td>{ task.id }</td>
-        <td>
+      <TableRow key={ task.id }>
+        <TableRowColumn>{ task.id }</TableRowColumn>
+        <TableRowColumn>
           <Link to={ `/task/${task.id}` }>
             { task.title }
           </Link>
-        </td>
-        <td>{ task.text }</td>
-      </tr>
+        </TableRowColumn>
+        <TableRowColumn>{ task.text }</TableRowColumn>
+      </TableRow>
     ));
   };
 
   // 画面描画
   render() {
+    const style: any = {
+      position: "fixed",
+      right: "12px",
+      bottom: "12px",
+    }
     return (
       <React.Fragment>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Title</th>
-              <th>Text</th>
-            </tr>
-          </thead>
+        <FloatingActionButton style={ style } containerElement={ <Link to="/task/new" /> }>
+          <ContentAdd></ContentAdd>
+        </FloatingActionButton>
+        <Table>
+          <TableHeader
+            displaySelectAll={ false }
+            adjustForCheckbox={ false }
+          >
+            <TableRow>
+              <TableHeaderColumn>ID</TableHeaderColumn>
+              <TableHeaderColumn>Title</TableHeaderColumn>
+              <TableHeaderColumn>Text</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
 
-          <tbody>
+          <TableBody
+            displayRowCheckbox={ false }
+          >
             {/* 関数を渡すことで表示できる */}
             { this.renderTaskList() }
-          </tbody>
-        </table>
-
-        {/* リンク */}
-        <Link to="/task/new">New Link</Link>
+          </TableBody>
+        </Table>
       </React.Fragment>
     );
   };
