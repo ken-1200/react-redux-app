@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const TASKLIST: string = "TASKLIST";
 export const CREATETASK: string = "CREATETASK";
+export const DELETETASK: string = "DELETETASK";
 
 // 一覧取得
 export const tasklist = () => async (dispatch: any) => {
@@ -31,4 +32,14 @@ export const createTask = (requestData: any) => async (dispatch: any) => {
 
   // reducerのactionにdispatchで値を渡す
   dispatch({ type: CREATETASK, response });
+};
+
+// タスク削除
+export const deleteTask = (id: string) => async (dispatch: any) => {
+  // タスク削除
+  const url = `${process.env.REACT_APP_BSSE_URL}todos/${id}`;
+  await axios.delete(url);
+
+  // reducerのactionにdispatchで値を渡す
+  dispatch({ type: DELETETASK, id });
 };

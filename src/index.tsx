@@ -10,6 +10,7 @@ import './index.css';
 import reducer from './reducers';
 import TaskList from './components/TaskList';
 import NewTask from './components/NewTask';
+import ShowTask from './components/ShowTask';
 import reportWebVitals from './reportWebVitals';
 
 // devtoolでReduxを拡張
@@ -26,7 +27,9 @@ ReactDOM.render(
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ TaskList }></Route>
-          <Route exact path="/task/new" component={ NewTask }></Route>
+          <Route exact path="/task" component={ TaskList }></Route>
+          <Route path="/task/new" component={ NewTask }></Route>
+          <Route path="/task/:id" component={ ShowTask }></Route>
         </Switch>
       </BrowserRouter>
     </Provider>
