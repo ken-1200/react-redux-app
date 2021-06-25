@@ -4,15 +4,21 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import './index.css';
 import reducer from './reducers';
 import TaskList from './components/TaskList';
 import NewTask from './components/NewTask';
+import ShowTask from './components/ShowTask';
 import reportWebVitals from './reportWebVitals';
 
+// devtoolでReduxを拡張
+const enhancer = process.env.NODE_ENV === "development" ?
+  composeWithDevTools(applyMiddleware(thunk)) : applyMiddleware(thunk);
+
 // ストアを定義する・アプリ内で唯一のものになる
-const store = createStore(reducer, applyMiddleware(thunk));
+const store = createStore(reducer, enhancer);
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,7 +27,9 @@ ReactDOM.render(
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ TaskList }></Route>
-          <Route exact path="/task/new" component={ NewTask }></Route>
+          <Route exact path="/task" component={ TaskList }></Route>
+          <Route path="/task/new" component={ NewTask }></Route>
+          <Route path="/task/:id" component={ ShowTask }></Route>
         </Switch>
       </BrowserRouter>
     </Provider>

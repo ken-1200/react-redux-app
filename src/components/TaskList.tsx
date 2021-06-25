@@ -20,7 +20,11 @@ class TaskList extends Component<Props, {}> {
     return _.map(this.props.task, task => (
       <tr key={ task.id }>
         <td>{ task.id }</td>
-        <td>{ task.title }</td>
+        <td>
+          <Link to={ `/task/${task.id}` }>
+            { task.title }
+          </Link>
+        </td>
         <td>{ task.text }</td>
       </tr>
     ));
