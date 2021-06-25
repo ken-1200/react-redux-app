@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const TASKLIST: string = "TASKLIST";
+export const GETTASK: string = "GETTASK";
 export const CREATETASK: string = "CREATETASK";
 export const DELETETASK: string = "DELETETASK";
 
@@ -12,6 +13,16 @@ export const tasklist = () => async (dispatch: any) => {
 
   // reducerのactionにdispatchで値を渡す
   dispatch({ type: TASKLIST, response });
+};
+
+// idタスク取得
+export const getTask = (id: string) => async (dispatch: any) => {
+  // タスク削除
+  const url = `${process.env.REACT_APP_BSSE_URL}todos/${id}`;
+  const response = await axios.get(url);
+
+  // reducerのactionにdispatchで値を渡す
+  dispatch({ type: GETTASK, response });
 };
 
 interface type {

@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 
-import { deleteTask } from '../actions';
+import { getTask, deleteTask } from '../actions';
 import '../App.css';
 
 type Props = {
   deleteTask: any;
+  getTask: any;
   history: any;
   match: any;
 }
@@ -20,12 +21,18 @@ type submitType = {
 class ShowTask extends Component<Props, {}> {
   // 初期化
   constructor(props: any) {
-    console.log("ddd");
     super(props);
 
     // イベントハンドラをインスタンスにバインドする
     this.onSubmit = this.onSubmit.bind(this);
     this.onDeleteClick = this.onDeleteClick.bind(this);
+  }
+
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    
+    // マウント時にidに紐づく情報を取得
+    if(id) this.props.getTask(id);
   }
 
   // メンバ関数
@@ -46,6 +53,7 @@ class ShowTask extends Component<Props, {}> {
     )
   }
 
+  // 更新
   private async onSubmit(values: submitType) {
     // await this.props.createTask(values);
 
@@ -53,6 +61,7 @@ class ShowTask extends Component<Props, {}> {
     this.props.history.push("/");
   }
 
+  // 削除
   private async onDeleteClick() {
     // オブジェクトを拾う方法
     const { id } = this.props.match.params;
@@ -97,9 +106,15 @@ const validate = (values: any) => {
   return error;
 }
 
-// ステートとアクション(reducersの中身)をPropsに渡す
-const mapDispathToProps: any = ({ deleteTask });
+// Propsに該当のタスクを渡す
+const mapStateToProps = (state: any, ownProps: any) => {
+  const task = state.task[ownProps.match.params.id];
+  return { initialValues: task, task };
+};
 
-export default connect(null, mapDispathToProps)(
-  reduxForm<{}, any>({ validate, form: "newTaskForm" })(ShowTask)
+// ステートとアクション(reducersの中身)をPropsに渡す
+const mapDispathToProps: any = ({ getTask, deleteTask });
+
+export default connect(mapStateToProps, mapDispathToProps)(
+  reduxForm<{}, any>({ validate, form: "showTaskForm", enableReinitialize: true })(ShowTask)
 );

@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { TASKLIST, DELETETASK } from "../actions";
+import { TASKLIST, DELETETASK, GETTASK } from "../actions";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (
@@ -17,6 +17,12 @@ export default (
 
       // 再表示
       return { ...task };
+
+    case GETTASK:
+      const data = action.response.data;
+
+      // tasklistを並べて、idに該当するデータを取得するs
+      return { ...task, [data.id]: data };
 
     default:
       return task;
