@@ -1,5 +1,11 @@
 import _ from "lodash";
-import { TASKLIST, DELETETASK, GETTASK, UPDATETASK } from "../actions";
+import {
+  TASKLIST,
+  CREATETASK,
+  DELETETASK,
+  GETTASK,
+  UPDATETASK,
+} from "../actions";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (
@@ -19,6 +25,7 @@ export default (
       return { ...task };
 
     case GETTASK:
+    case CREATETASK:
     case UPDATETASK:
       // response info
       const data = action.response.data;
