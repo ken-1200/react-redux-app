@@ -52,7 +52,8 @@ class NewTask extends Component<Props, {}> {
 
   // 画面描画
   render() {
-    const { handleSubmit }: any = this.props;
+    // propsを引き取っている
+    const { handleSubmit, pristine, submitting }: any = this.props;
 
     return (
       <React.Fragment>
@@ -63,7 +64,7 @@ class NewTask extends Component<Props, {}> {
           </div>
 
           <div>
-            <input type="submit" value="Submit" disabled={ false } />
+            <input type="submit" value="Submit" disabled={ pristine || submitting } />
             <Link to="/">Cancel</Link>
           </div>
         </form>
