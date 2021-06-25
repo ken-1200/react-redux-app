@@ -22,7 +22,6 @@ const enhancer = process.env.NODE_ENV === "development" ?
 const store = createStore(reducer, enhancer);
 
 ReactDOM.render(
-  // <React.StrictMode>
   <MuiThemeProvider>
     {/* プロバイダーで囲うと全ての階層でストアが使える */}
     <Provider store={ store }>
@@ -36,7 +35,6 @@ ReactDOM.render(
       </BrowserRouter>
     </Provider>
   </MuiThemeProvider>,
-  // </React.StrictMode>,
   document.getElementById('root')
 );
 
